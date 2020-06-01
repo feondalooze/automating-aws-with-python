@@ -6,3 +6,11 @@ AWS with Python
 
 Webotron is a script that will sync a local directory to an S3 bucket, and will optionally configure
 Route 53 and cloudfront as well.
+
+
+### Features
+
+Webotorn currently has the foloowing features:
+
+- List bucket
+- List contents of a bucket
