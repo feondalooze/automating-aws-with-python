@@ -14,3 +14,5 @@ Webotorn currently has the foloowing features:
 
 - List bucket
 - List contents of a bucket
+- Create and setup bucket
+
