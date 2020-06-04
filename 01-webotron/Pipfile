@@ -5,10 +5,14 @@ verify_ssl = true
 
 [dev-packages]
 ipython = "*"
+pycodestyle = "*"
+pidocstyle = "*"
+pydocstyle = "*"
 
 [packages]
 boto3 = "*"
 click = "*"
+pydocstyle = "*"
 
 [requires]
 python_version = "3.8"
