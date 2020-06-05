@@ -1,21 +1,21 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-"""Webotorn: Deploy websites with aws
+"""Webotorn: Deploy websites with aws.
 
 Webotron automates the process of deploying static websites to AWS.
 -  Configure AWS S3 buckets
    -  Create them
    -  Set  them up for static website hosting
    -  Deploy local files to them
--  Configure DNS with AWS Route 53 
+-  Configure DNS with AWS Route 53
 -  Configure a Content Delivery Network and SSL  with AWS  Cloudfront
 """
 from pathlib import Path
 import mimetypes
+import click
 import boto3
 from botocore.exceptions import ClientError
-import click
 
 
 session = boto3.Session(profile_name='pythonAutomation')
@@ -24,7 +24,7 @@ s3 = session.resource('s3')
 
 @click.group()
 def cli():
-    """Webotron deploys websites to AWS"""
+    """Webotron deploys websites to AWS."""
     pass
 
 
@@ -46,7 +46,7 @@ def list_bucket_objects(bucket):
 @cli.command('setup-bucket')
 @click.argument('bucket')
 def setup_bucket(bucket):
-    """Create and configure S3 bucket"""
+    """Create and configure S3 bucket."""
     s3_bucket = None
 
     try:
@@ -54,11 +54,11 @@ def setup_bucket(bucket):
             Bucket='mybucketautomation-aws',
             CreateBucketConfiguration={'LocationConstraint': 'us-west-1'}
         )
-    except ClientError as e:
-        if e.response['Error']['Code'] == 'BucketAlreadyOwnedByYou':
+    except ClientError as error:
+        if error.response['Error']['Code'] == 'BucketAlreadyOwnedByYou':
             s3_bucket = s3.Bucket(bucket)
         else:
-            raise e
+            raise error
 
 
     policy = """
@@ -101,7 +101,7 @@ def upload_file(s3_bucket, path, key):
        path,
        key,
        ExtraArgs={
-           'ContentType': 'text/html'
+           'ContentType': content_type
        })
 
 
@@ -109,7 +109,7 @@ def upload_file(s3_bucket, path, key):
 @click.argument('pathname', type=click.Path(exists=True))
 @click.argument('bucket')
 def sync(pathname, bucket):
-    """Sync contents of PATHNAME to BUCKET"""
+    """Sync contents of PATHNAME to BUCKET."""
     s3_bucket = s3.Bucket(bucket)
 
     root = Path(pathname).expanduser().resolve()
@@ -118,7 +118,7 @@ def sync(pathname, bucket):
         for p in target.iterdir():
             if p.is_dir():
                 handle_directory(p)
-            if p.is_file(): 
+            if p.is_file():
                 upload_file(s3_bucket, str(p), str(p.relative_to(root)))
 
     handle_directory(root)
@@ -126,3 +126,4 @@ def sync(pathname, bucket):
 
 if __name__ == '__main__':
     cli()
+ 
