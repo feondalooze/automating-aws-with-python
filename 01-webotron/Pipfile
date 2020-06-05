@@ -8,6 +8,7 @@ ipython = "*"
 pycodestyle = "*"
 pidocstyle = "*"
 pydocstyle = "*"
+boto3 = "*"
 
 [packages]
 boto3 = "*"
@@ -15,4 +16,4 @@ click = "*"
 pydocstyle = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
