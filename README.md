@@ -16,3 +16,4 @@ Webotorn currently has the foloowing features:
 - List contents of a bucket
 - Create and setup bucket
 - Sync directory tree to bucket
+- Set AWS profile with --profile=<profileName>
