@@ -47,7 +47,6 @@ sg = ec2.SecurityGroup(inst.security_groups[0]['GroupId']
 sg.authorize_ingress(IpPermissions=
 [{'FromPort':22, 'ToPort':22, 'IpProtocol':'TCP', 'IpRanges':[{'CidrIp':'72.188.116.146/32'}]}
 ])
-ssh ec2-user@ec2-54-83-130-217.compute-1.amazonaws.com -i pythonAutomation_key.pem
 sg.authorize_ingress(IpPermissions=
 [{'FromPort':80, 'ToPort':80, 'IpProtocol':'TCP', 'IpRanges':[{'CidrIp':'0.0.0.0/0'}]}
 ])
